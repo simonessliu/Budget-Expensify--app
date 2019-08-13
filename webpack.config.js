@@ -9,7 +9,7 @@ module.exports = (env) =>{
     return {
         entry : './src/app.js',
         output : {
-            path: path.join(__dirname,'public'),
+            path: path.join(__dirname,'public','dist'),
             filename: 'bundle.js'
         },
     
@@ -47,7 +47,8 @@ module.exports = (env) =>{
         
         devServer : {
             contentBase : path.join(__dirname,'public'),
-            historyApiFallback:true // tell server that we are gonna handle routing via our client side code and it should return this page for all 404 routes 
+            historyApiFallback:true, // tell server that we are gonna handle routing via our client side code and it should return this page for all 404 routes
+            publicPath:'/dist/' 
         }
     }
 }
