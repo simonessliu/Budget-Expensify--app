@@ -11,14 +11,14 @@ export const addExpense = (expense) => ({
 });
 
 // action to store to firebase and redux
-export const startAddExpense = (expenseDate = {}) =>{
+export const startAddExpense = (expenseData = {}) =>{
     return (dispatch) => {
         const {
             description = '', 
             note = '', 
             amount = 0, 
             createdAt = 0
-        } = expenseDate;
+        } = expenseData;
 
        const expense = {description,note,amount,createdAt}
 
@@ -44,3 +44,48 @@ export const editExpense = (id, updates) => ({
     updates
 });
 
+//SET_EXPENSES
+export const setExpenses = (expenses) =>({
+    type:'SET_EXPENSES',
+    expenses
+})
+
+export const startSetExpenses = () =>{
+    return (dispatch) => {
+        return database.ref('expenses').once('value').then((snapshot)=>{
+            //the return here means inside the startsetexpenses we return a dispatch
+            //and inside that dispatch we return an promise
+            //this return is required if we want to toss on another then in other files (in app.js)
+            // if we dont have this second return, it will have a type error in app.js, which is 'then' is undefined
+            //cause here we returned an dispatch not a Promise, we have to add this return to make it return an promise not something else
+
+            //in playground promise, we see const promise = new Promise(()+>{})... this is done by firebase,so here
+            // database.ref('expenses').once()...has help us for defining promise, so we can use then()here directly 
+            // but for app.js it doesnt define the promise, so here we need to return a promise
+            const expenses = [];
+            snapshot.forEach((childSnapshot)=>{
+                expenses.push({
+                    id:childSnapshot.key,
+                    ...childSnapshot.val()
+                })
+            })
+            dispatch(setExpenses(expenses));
+        })
+        
+    }
+}
+// database.ref('expenses')
+//   .once('value')
+//   .then((snapshot)=>{
+//     const expenses = [];
+
+//     snapshot.forEach((childSnapshot)=>{
+//         expenses.push({
+//             id:childSnapshot.key, // key is LnGkJ84K-RPtZTVImMB for example
+//             ...childSnapshot.val() 
+//         })
+//     })
+
+
+//     console.log(expenses);
+//   })

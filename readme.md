@@ -53,9 +53,17 @@ for development we have all process.env.FIREBASE_API:....  set equal to the valu
 
 4. next we need to add a new plugin below called  new webpack.DefinePlugin
 
-as all these process.env.AAAAA is proceed on the server side, to enable it securely run on the client site we need to convert env value into string. 
+Our node environment variables,(like process.env.FIREBASE_API) the ones that exist in the webpack file they do not get passed down to the client side javascript. if they did, it would cause security concerns.
 
-5. at last in the firebase file we dont need the static setting into, instead we change it to relative process.env.XXX, so its value will be changed based on different process.env.NODE_ENV and the data will be saved to different database as well
+so we need to pass theses values down into our client side javascript in bundle.js file.
+
+at this point we are correctly passing down those values, 
+and at last we just need to use these values
+
+
+5. at last in the firebase file we dont need the static setting into, instead we change it to relative process.env.XXX, 
+    #the one we have already set in webpack definePlugin （冒号左边的）
+ so its value will be changed based on different process.env.NODE_ENV and the data will be saved to different database as well
 
 
 

@@ -39,7 +39,8 @@ export default (state = expenseReducerDefaultState,action) =>{
                     return expense
                 }
             })
-       
+       case 'SET_EXPENSES' :
+           return action.expenses;//same like add expense here we also return an array
         default: 
             return state;
     }
