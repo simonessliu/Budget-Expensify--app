@@ -56,3 +56,20 @@ for development we have all process.env.FIREBASE_API:....  set equal to the valu
 as all these process.env.AAAAA is proceed on the server side, to enable it securely run on the client site we need to convert env value into string. 
 
 5. at last in the firebase file we dont need the static setting into, instead we change it to relative process.env.XXX, so its value will be changed based on different process.env.NODE_ENV and the data will be saved to different database as well
+
+
+
+#  for production mode database, we need to MANUALLY set them onto HEROKU from the Command line
+
+before we set the database env for test and development seperately 
+
+for production env on Heroku, we open the command line and check
+
+1. heroku config 
+    it will show how many configs we have created. 
+2. heroku config:set KEY=VALUE
+    now we can set the value VALUE with the key KEY
+3. heroku config:unset KEY
+    we delete the key KEY vale
+4. heroku config:set FIREBASE_API_KEY=AIzaSyBce3ZLJFH-z69nCMEutxLMQDXnlMWvTKU FIREBASE_AUTH_DOMAIN=expensify-apps.firebaseapp.com FIREBASE_DATABASE_URL=https://expensify-apps.firebaseio.com FIREBASE_PROJECT_ID=expensify-apps FIREBASE_STORAGE_BUCKET=expensify-apps.appspot.com FIREBASE_MESSAGING_SENDER_ID=544946611190 FIREBASE_APP_ID=1:544946611190:web:df67d235b388fe3a
+
