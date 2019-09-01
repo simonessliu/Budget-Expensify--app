@@ -86,6 +86,6 @@ for production env on Heroku, we open the command line and check
 
 1. enable auth by Google or somthing else on the firebase website
 2. in the firebase.js set googleauthprovider and export it
-3. in the app.js set on auth state change fun() and give it an callback function(dont forget to change login page as home page)
+3. in the app.js set on authstatechange fun() and give it an callback function(dont forget to change login page as home page)
 4. create a new action file named auth.js to connect to the firebase
 5. inside the loginpage component, access auth.js via redux connect 
