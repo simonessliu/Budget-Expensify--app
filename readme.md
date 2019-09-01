@@ -81,3 +81,11 @@ for production env on Heroku, we open the command line and check
     we delete the key KEY vale
 4. heroku config:set FIREBASE_API_KEY=AIzaSyBce3ZLJFH-z69nCMEutxLMQDXnlMWvTKU FIREBASE_AUTH_DOMAIN=expensify-apps.firebaseapp.com FIREBASE_DATABASE_URL=https://expensify-apps.firebaseio.com FIREBASE_PROJECT_ID=expensify-apps FIREBASE_STORAGE_BUCKET=expensify-apps.appspot.com FIREBASE_MESSAGING_SENDER_ID=544946611190 FIREBASE_APP_ID=1:544946611190:web:df67d235b388fe3a
 
+
+#SET UP FIREBASE AUTHENTICATION
+
+1. enable auth by Google or somthing else on the firebase website
+2. in the firebase.js set googleauthprovider and export it
+3. in the app.js set on auth state change fun() and give it an callback function(dont forget to change login page as home page)
+4. create a new action file named auth.js to connect to the firebase
+5. inside the loginpage component, access auth.js via redux connect 
