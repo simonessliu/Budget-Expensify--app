@@ -38,6 +38,9 @@ export const removeExpense = ({ id } = {}) => ({
     id
 });
 
+// why we have to connect firebase to redux?
+// if we dont everytime we use connect mapstatetoprops, everytime we want the data from the redux store
+// we gonna have to fetch data from the firebase, its not good
 export const startRemoveExpense = ({id}={}) =>{
     return (dispatch) => {
         return database.ref(`expenses/${id}`).remove().then(()=>{
@@ -51,6 +54,15 @@ export const editExpense = (id, updates) => ({
     id,
     updates
 });
+
+export const startEditExpense = (id, updates) =>{
+    return (dispatch) => {
+        return database.ref(`expenses/${id}`).update(updates).then(()=>{
+            dispatch(editExpense(id,updates))
+        })
+    }
+}
+
 
 //SET_EXPENSES
 export const setExpenses = (expenses) =>({
