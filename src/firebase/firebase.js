@@ -15,7 +15,13 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-export { firebaseConfig, database as default};
+// in the firebase website--authentication--登录方法,we enabled google 
+// here we create a googleauthprovider to set authenticate with google
+// we can also set it up for github or others like below
+// const githubProvider = new firebase.auth.GithubAuthProvider();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+export { firebase, googleAuthProvider, database as default};
 
 
 // database.ref('expenses').push({
