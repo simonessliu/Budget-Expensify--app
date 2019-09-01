@@ -15,7 +15,9 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-export { firebase, database as default};
+export { firebaseConfig, database as default};
+
+
 // database.ref('expenses').push({
 //     description:'Water Bill',
 //     note:'null',
@@ -73,7 +75,7 @@ export { firebase, database as default};
 //     body:'Buy food'
 // })
 
-//.push() will create a new RANDOM key value under the notes like the 'abc' below
+// .push() will create a new RANDOM key value under the notes like the 'abc' below
 // and put what we put inside the push()argument into that random key 
 // database.ref('notes').push({
 //     title:'Course Topics',
@@ -204,4 +206,4 @@ export { firebase, database as default};
 //     isSingle:null,
 //     'location/city':'Boston'
 // })
-//update has to be called with an object
+// update has to be called with an object
