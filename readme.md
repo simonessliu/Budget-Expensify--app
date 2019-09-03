@@ -89,3 +89,38 @@ for production env on Heroku, we open the command line and check
 3. in the app.js set on authstatechange fun() and give it an callback function(dont forget to change login page as home page)
 4. create a new action file named auth.js to connect to the firebase
 5. inside the loginpage component, access auth.js via redux connect 
+
+# TO ALLOW HEROKU SITE LOGIN 
+我们只需在firebase上 authentication 里面 添加授权域名即可，把我们deploy到heroku的网址网上去
+
+
+#LOGOUT AND LOGIN REDIRECT
+
+1. in action / auth.js we create a new action called start log out
+2. we band the action in the header component
+3. in order to allow other file to use history props built in browserrouter ithin approuter.js.    we installed npm history module
+4. in approuter.js we change browserrouter to router and manually put history init.
+5. in app.js we can use history, so we redirect logout to 
+history.push('/')
+6. in order to avoid re rendering we made some changes in the app.js 
+    for details we create renderapp func() and also render and redirect in the if statement below
+
+
+# Auth reducer
+1. this is real authentication, we have created the auth action now is for reducer.
+
+2. for each login user there is an id ,we can check it by user.uid console.log in the app.js firebase function
+
+3. we create the action login logout in the action auth.js
+
+4. we create reducer auth.js in reducer 
+
+5. we combine the reducer in the configurestore.js 
+6. last in the app.js we just need to simply dispatch it in the firebase.auth().onAuthStateChanged
+
+#private only routes
+
+1. import privateRoute component from router folder and change 3 route for dashboard and create and edit to private route
+2. create privateroute component 
+3. connect them to the redux store for state.auth.uid, 
+4. eventually we can put header component from the approuter.js to the private route.js file. to print the header only when authenticated
