@@ -160,3 +160,12 @@ history.push('/')
 6. fix the test cases
 
 7. at last set the rules in the firebasedatabase, the guides can be found from the firebase guides
+
+#validate right before the data is written 
+Currently we have managed client side validation
+
+server side validation is to make sure nothing that's NOT VALID gets saved
+1. in the firebase rules, we created an $other at the end, it means except read write and expenses, others goes below
+    unlike $user_id and $expense_id, these 2 means the only child in users and expenses respectively
+
+2. .validate : false means even if logged in, u can only write "expenses" listed above, for others we gonna consider it as invalid

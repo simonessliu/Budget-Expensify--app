@@ -15,6 +15,9 @@ export const addExpense = (expense) => ({
 export const startAddExpense = (expenseData = {}) =>{
     return (dispatch,getState) => {
         const uid = getState().auth.uid;
+        // the auth here is the auth.js file in reducer
+        // like if we want the description in our redux state
+        // we use getState().expenses.description
         const {
             description = '', 
             note = '', 
