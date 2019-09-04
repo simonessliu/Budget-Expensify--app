@@ -169,3 +169,7 @@ server side validation is to make sure nothing that's NOT VALID gets saved
     unlike $user_id and $expense_id, these 2 means the only child in users and expenses respectively
 
 2. .validate : false means even if logged in, u can only write "expenses" listed above, for others we gonna consider it as invalid
+
+
+# our project not works in IE 11 cause it doesn't support functions like array.include()
+1. we install babel-polyfill and set up in webpack config file in the entry;
