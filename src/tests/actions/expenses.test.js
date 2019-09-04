@@ -13,7 +13,9 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import database from '../../firebase/firebase';
 
-const createMockStore = configureMockStore([thunk])
+const uid = 'thisismytestuid';
+const createMockStore = configureMockStore([thunk])// very important dont forget
+
 
 beforeEach((done) =>{
 
@@ -21,7 +23,7 @@ beforeEach((done) =>{
     expenses.forEach(({id,description,note,amount,createdAt})=>{
         expensesData[id] = {description,note,amount,createdAt}
     })
-    database.ref('expenses').set(expensesData).then(()=>done());
+    database.ref(`users/${uid}/expenses`).set(expensesData).then(()=>done());
 })
 
 test ('should setup remove expense action object', ()=>{
@@ -33,7 +35,7 @@ test ('should setup remove expense action object', ()=>{
 })
 
 test('should remove expenses from the firebase',(done)=>{
-    const store = createMockStore({});
+    const store = createMockStore({ auth:{uid} });//before we dont have any arguments here, but now we do need the uid to be put into mock store
     const id = expenses[0].id;
     store.dispatch(startRemoveExpense({id})).then(()=>{
         const actions = store.getActions();
@@ -41,7 +43,7 @@ test('should remove expenses from the firebase',(done)=>{
             type:'REMOVE_EXPENSE',
             id
         });
-        return database.ref(`expenses/${id}`).once('value');
+        return database.ref(`users/${uid}/expenses/${id}`).once('value');
     }).then((snapshot)=>{
         expect(snapshot.val()).toBeFalsy();
         done();
@@ -61,7 +63,7 @@ test("should setup edit expense action object",()=>{
 })
 
 test("should edit expense data in the firebase",(done)=>{
-    const store = createMockStore({});
+    const store = createMockStore({ auth:{uid} });
     const id = expenses[1].id
     const updates= {
         description:'testingchange',
@@ -76,7 +78,7 @@ test("should edit expense data in the firebase",(done)=>{
             id,
             updates
         });
-        return database.ref(`expenses/${id}`).once('value');
+        return database.ref(`users/${uid}/expenses/${id}`).once('value');
     }).then((snapshot)=>{
         expect(snapshot.val()).toEqual(updates);
         done();
@@ -93,7 +95,7 @@ test('should setup add expense action object with provided value', ()=>{
 
 test('should add expense to database and store',(done)=>{
     //mockstore is used to connect redux-store,so that we can use dispatch
-    const store = createMockStore({});
+    const store = createMockStore({auth:{uid}});
     const expenseData = {
         description:'Mouse',
         amount:3000,
@@ -110,7 +112,7 @@ test('should add expense to database and store',(done)=>{
             }
         });
 
-        return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+        return database.ref(`users/${uid}/expenses/${actions[0].expense.id}`).once('value')
         // done here means the test is not going to consider succ or fail
         // until the done() here. so all the code is before done();
         // all code will run first and then check if it was success or fail
@@ -121,7 +123,7 @@ test('should add expense to database and store',(done)=>{
 })
 
 test('should add expense with default to database and store',(done)=>{
-    const store = createMockStore({});
+    const store = createMockStore({auth:{uid}});
     const expenseDataDefaults = {
         description:'',
         amount:0,
@@ -138,7 +140,7 @@ test('should add expense with default to database and store',(done)=>{
             }
         });
 
-        return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+        return database.ref(`users/${uid}/expenses/${actions[0].expense.id}`).once('value')
         // done here means the test is not going to consider succ or fail
         // until the done() here. so all the code is before done();
         // all code will run first and then check if it was success or fail
@@ -157,7 +159,7 @@ test('should setup set expense action object with data',()=>{
 })
 
 test('should fetch the expenses from the firebase',(done)=>{
-    const store = createMockStore({});
+    const store = createMockStore({auth:{uid}});
     store.dispatch(startSetExpenses()).then(()=>{
         const actions = store.getActions();
         expect(actions[0]).toEqual({

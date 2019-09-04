@@ -124,3 +124,39 @@ history.push('/')
 2. create privateroute component 
 3. connect them to the redux store for state.auth.uid, 
 4. eventually we can put header component from the approuter.js to the private route.js file. to print the header only when authenticated
+
+#public routes
+
+1. very similar as private routes 
+2. dont forget to change the navlink in header from '/' to 'dashboard'
+
+#Private Firebase Data
+1. now our database structure is like
+    #expenses:{
+        id:xxxxxxx {
+            description.....
+        }
+    }
+
+2. we want it to be like 
+    #users {
+        uid{
+            expenses:{
+                expenses-id:{
+                    xxxxxxxx
+                }
+            }
+        }
+    }
+
+3. to do this we need to fetch to the expenses.js in action and change startAddExpense from 
+    return database.ref(`expenses`).push(expense).then
+    to 
+    return database.ref(`users/${uid}/expenses`).push(expense).then\
+4. for the startSetExpense, startRemoveExpense, StartEditExpense we do the same thing as above
+
+5. for the uid above we create a new const uid and give it an value of getState().auth.uid  getState() is also one of the function from thunk
+
+6. fix the test cases
+
+7. at last set the rules in the firebasedatabase, the guides can be found from the firebase guides
