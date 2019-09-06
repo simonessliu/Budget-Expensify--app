@@ -2,8 +2,19 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import {startEditExpense,startRemoveExpense} from '../actions/expenses';
+import OptionModal from './OptionModal';
+import Modal from 'react-modal';
 
 export class EditExpensePage extends React.Component{
+
+    state = {
+        ModalsOn: false
+    }
+
+    componentDidMount() {
+        Modal.setAppElement('body');
+    }
+
     onSubmit = (expense) =>{
         this.props.startEditExpense(this.props.expense.id,expense)
         this.props.history.push('/')
@@ -11,6 +22,22 @@ export class EditExpensePage extends React.Component{
     onRemove = () => {
         this.props.startRemoveExpense({id:this.props.expense.id})
         this.props.history.push('/');
+    }
+
+    handleRemove = () =>{
+        this.setState(()=>{
+            return {
+                ModalsOn: true
+            }
+        })
+    }
+
+    handleModaloff =() =>{
+        this.setState(()=>{
+            return{
+                ModalsOn: undefined
+            }
+        })
     }
     render() {
         return (
@@ -25,8 +52,13 @@ export class EditExpensePage extends React.Component{
                         expense = {this.props.expense}
                         onSubmit = {this.onSubmit}
                     />
-                    <button className="button button--secondary" onClick = {this.onRemove}>Remove Expense</button>
-                </div>     
+                    <button className="button button--secondary" onClick = {this.handleRemove}>Remove Expense</button>
+                </div>
+                <OptionModal 
+                    ModalsOn={this.state.ModalsOn}
+                    handleModaloff={this.handleModaloff}
+                    onRemove={this.onRemove}
+                />     
             </div>
         );
     }

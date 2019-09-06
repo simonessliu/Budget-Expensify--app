@@ -7,8 +7,8 @@
     padding:$s-size $m-size;
 }
 
-.list-item{
-    border:1px solid darken($off-white,7%);
+
+.list-item__confirm {
     border-top:none;
     display:flex;
     flex-direction: column;
@@ -16,9 +16,6 @@
     padding:$s-size;
     text-decoration: none;
     transition: background .3s ease;
-    &:hover{
-        background:$off-white;
-    }
     @media(min-width: $desktop-breakpoint){
         align-items:center;
         flex-direction:row;
@@ -26,6 +23,17 @@
         padding:$m-size;
     }
 }
+
+.list-item{
+    border:1px solid darken($off-white,7%);
+    border-top:none;
+    @extend .list-item__confirm;
+    &:hover{
+        background:$off-white;
+    }
+}
+
+
 
 .list-body{
     margin-bottom: $m-size;
