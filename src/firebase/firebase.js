@@ -21,8 +21,9 @@ const database = firebase.database();
 // we can also set it up for github or others like below
 // const githubProvider = new firebase.auth.GithubAuthProvider();
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+const githubAuthProvider = new firebase.auth.GithubAuthProvider();
 
-export { firebase, googleAuthProvider, database as default};
+export { firebase, googleAuthProvider, githubAuthProvider,database as default};
 
 
 // database.ref('expenses').push({

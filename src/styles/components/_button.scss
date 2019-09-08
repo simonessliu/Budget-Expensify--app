@@ -18,3 +18,7 @@
     background:#888;
 }
 
+.button--box{
+    @extend .button;
+    margin-bottom: 12px;
+}
