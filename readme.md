@@ -173,3 +173,5 @@ server side validation is to make sure nothing that's NOT VALID gets saved
 
 # our project not works in IE 11 cause it doesn't support functions like array.include()
 1. we install babel-polyfill and set up in webpack config file in the entry;
+
+2. testing for changing repo name
